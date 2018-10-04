@@ -1,6 +1,6 @@
 import React from 'react';
-import '../styles/App.css';
 import Business from './Business';
+import '../styles/App.css';
 
 const BusinessList = (props) => {
   console.log(props);

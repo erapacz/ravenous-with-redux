@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {Component} from 'react';
 import '../styles/App.css';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {requestBusinesses} from '../actions/index';
 
-class SearchBar extends React.Component {
+class SearchBar extends Component {
   constructor(props){
     super(props);
     this.state = {
+      term: '',
+      location: '',
       sortBy: 'best_match'
     };
 
+    //allows user to submit form with anchor tag rather than a button
     this.handleSearch = this.handleSearch.bind(this);
 
     this.sortByOptions = {
@@ -17,43 +23,38 @@ class SearchBar extends React.Component {
     };
   }
 
-  onTermChange(term) {
-    this.props.onTermChange(term);
+  onTermChange = e => {
+    this.setState({term: e.target.value})
   }
 
-  onLocationChange(location) {
-    this.props.onLocationChange(location);
+  onLocationChange = e => {
+    this.setState({location: e.target.value})
   }
 
   handleSortByChange(sortByOption) {
+    console.log(sortByOption)
     this.setState({ sortBy: sortByOption });
-    this.props.handleSortByChange(sortByOption);
   }
 
-  getSortByClass(sortByOption){
-    if(this.state.sortBy === sortByOption){
-      return 'active';
-    }
-      return '';
-  }
-
-  handleSearch(event) {
-    this.props.searchYelp(
+  handleSearch = e => {
+    e.preventDefault();
+    //fetch Yelp API by calling action creator
+    this.props.requestBusinesses(
       this.state.term,
       this.state.location,
       this.state.sortBy
     );
-    event.preventDefault();
+    //clear search fields
+    this.setState({term: '', location: ''})
   }
 
   renderSortByOptions(){
     return Object.keys(this.sortByOptions).map(sortByOption => {
-      let sortByOptionValue = this.sortByOptions[sortByOption];
       return(
         <li
-          className={this.getSortByClass(sortByOptionValue)}
-          key={sortByOptionValue}
-          onClick={event => this.handleSortByChange(sortByOptionValue)}>
+          className={sortByOption === this.state.sortBy ? 'active' : ''}
+          key={sortByOption}
+          onClick={() => this.handleSortByChange(sortByOption)}>
             {sortByOption}
         </li>
       );
@@ -68,20 +69,34 @@ class SearchBar extends React.Component {
             {this.renderSortByOptions()}
           </ul>
         </div>
-        <div className="SearchBar-fields">
-          <input
-            placeholder="Search Businesses"
-            onChange={event => this.onTermChange(event.target.value)} />
-          <input
-            placeholder="Where?"
-            onChange={event => this.onLocationChange(event.target.value)} />
-        </div>
-        <div className="SearchBar-submit">
-          <a onClick={this.handleSearch}>Let's Go</a>
-        </div>
+        <form id="searchBar" onSubmit={this.handleSearch}>
+          <div className="SearchBar-fields">
+            <input
+              placeholder="Search Businesses"
+              value = {this.state.term}
+              onChange={this.onTermChange} />
+            <input
+              placeholder="Where?"
+              value = {this.state.location}
+              onChange={this.onLocationChange} />
+          </div>
+          <div className="SearchBar-submit">
+            <a onClick={this.handleSearch}>Let's Go</a>
+          </div>
+        </form>
       </div>
     );
   }
 }
 
-export default SearchBar;
+function mapStateToProps(state) {
+  return {
+    businesses: state.businesses
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({requestBusinesses}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

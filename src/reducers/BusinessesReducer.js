@@ -1,4 +1,4 @@
-import { REQUEST_BUSINESSES, SEARCH_PARAMS } from '../actions';
+import { SEARCH_PARAMS } from '../actions';
 
 const initialState = {
   term: '',
