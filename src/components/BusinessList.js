@@ -1,18 +1,26 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Business from './Business';
 import '../styles/App.css';
+import {connect} from 'react-redux';
 
-const BusinessList = (props) => {
-  console.log(props);
-  const list = props.businesses.map(business => {
-    return <Business key={business.id}
-                     business={business}
-                     onBusinessSelect={props.onBusinessSelect} />
-  });
+class BusinessList extends Component {
+  render() {
+    const list = this.props.data.businesses.map((business) => {
+      return <Business key={business.id}
+                       business={business} />
+    });
 
-  return (
-    <div className="BusinessList">{list}</div>
-  );
-};
+    return (
+      <div className="BusinessList">{list}</div>
+    );
+  }
+}
 
-export default BusinessList;
+
+function mapStateToProps(state) {
+  return {
+    data: state.businesses
+  };
+}
+
+export default connect(mapStateToProps)(BusinessList);

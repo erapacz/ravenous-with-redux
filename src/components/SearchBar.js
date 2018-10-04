@@ -50,11 +50,12 @@ class SearchBar extends Component {
 
   renderSortByOptions(){
     return Object.keys(this.sortByOptions).map(sortByOption => {
+      let sortByOptionValue = this.sortByOptions[sortByOption];
       return(
         <li
-          className={sortByOption === this.state.sortBy ? 'active' : ''}
-          key={sortByOption}
-          onClick={() => this.handleSortByChange(sortByOption)}>
+          className={sortByOptionValue === this.state.sortBy ? 'active' : ''}
+          key={sortByOptionValue}
+          onClick={() => this.handleSortByChange(sortByOptionValue)}>
             {sortByOption}
         </li>
       );
@@ -91,7 +92,7 @@ class SearchBar extends Component {
 
 function mapStateToProps(state) {
   return {
-    businesses: state.businesses
+    data: state.businesses
   };
 }
 

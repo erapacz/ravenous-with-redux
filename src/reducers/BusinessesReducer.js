@@ -1,20 +1,12 @@
-import { SEARCH_PARAMS } from '../actions';
+import { FETCH_BUSINESSES } from '../actions';
 
-const initialState = {
-  term: '',
-  location: '',
-  sortBy: '',
-};
-
-export default function businesses(state = initialState, action) {
+export default function businesses(state = {businesses: []}, action) {
   switch(action.type) {
-    case SEARCH_PARAMS:
+    case FETCH_BUSINESSES:
       return {
         ...state,
-        term: action.data,
-        location: action.data,
-        sortBy: action.data
-      }
+        businesses: action.payload.data.businesses
+      };
     default:
       return state;
   }
