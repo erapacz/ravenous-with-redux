@@ -1,17 +1,37 @@
 import React, {Component} from 'react';
 
 class GoogleMap extends Component {
-  componentDidMount() {
-    new google.maps.Map(this.refs.map, {
-      zoom: 12,
-      center: {
-        lat: this.props.lat,
-        lng: this.props.lon
-      }
-    })
+  constructor(props) {
+    super(props);
+    this.onScriptLoad = this.onScriptLoad.bind(this)
   }
+
+  onScriptLoad() {
+    const map = new window.google.maps.Map(
+      document.getElementById(this.props.id),
+      this.props.options);
+    this.props.onMapLoad(map)
+  }
+
+  componentDidMount() {
+    if(!window.google) {
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.src = `https://maps.google.com/maps/api/js?key=AIzaSyAq06l5RUVfib62IYRQacLc-KAy0XIWAVs`;
+      var x = document.getElementsByTagName('script')[0];
+      x.parentNode.insertBefore(s, x);
+      s.addEventListener('load', e => {
+        this.onScriptLoad()
+      })
+    } else {
+      this.onScriptLoad()
+    }
+  }
+
   render() {
-    return <div ref="map"/>
+    return (
+      <div style={{ width: 500, height: 500 }} id={this.props.id} />
+    );
   }
 }
 
