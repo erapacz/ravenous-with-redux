@@ -12,7 +12,7 @@ const Business = ({business}) => {
         <div className="Business-address">
           <p>{business.location.address1}</p>
           <p>{business.location.city}</p>
-          <p>{`${business.location.state} ${business.location.zipCode}`}</p>
+          <p>{`${business.location.state} ${business.location.zip_code}`}</p>
         </div>
         <div className="Business-reviews">
           <h3 className="rating">{`${business.rating} stars`}</h3>
