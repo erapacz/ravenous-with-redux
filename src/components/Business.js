@@ -1,9 +1,9 @@
 import React from 'react';
 import '../styles/App.css';
 
-const Business = ({business}) => {
+const Business = ({business, onBusinessSelect}) => {
   return (
-    <div className="Business">
+    <div className="Business" onClick={() => onBusinessSelect(business)}>
       <div className="image-container">
         <img src={business.image_url} alt={business.name} />
       </div>

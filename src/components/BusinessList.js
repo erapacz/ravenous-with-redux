@@ -7,7 +7,8 @@ class BusinessList extends Component {
   render() {
     const list = this.props.data.businesses.map((business) => {
       return <Business key={business.id}
-                       business={business} />
+                       business={business}
+                       onBusinessSelect={this.props.onBusinessSelect} />
     });
 
     return (
@@ -20,7 +21,7 @@ class BusinessList extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.businesses
+    data: state.businesses,
   };
 }
 
