@@ -11,6 +11,7 @@ class BusinessModal extends Component {
     } else {
       return (
         <Modal
+          ariaHideApp={false}
           isOpen={ this.props.modalIsOpen }
           onRequestClose={ () => this.props.onRequestClose() }>
             <div>
