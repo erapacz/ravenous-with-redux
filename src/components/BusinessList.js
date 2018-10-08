@@ -12,6 +12,7 @@ class BusinessList extends Component {
 
     return (
       <div className="BusinessList">{list}</div>
+
     );
   }
 }
