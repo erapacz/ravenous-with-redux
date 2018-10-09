@@ -8,7 +8,6 @@ class ComponentView extends Component {
     super(props);
     this.state = {
       isHidden: true,
-      businesses: []
     }
   }
 
@@ -23,8 +22,6 @@ class ComponentView extends Component {
       <div>
         { this.props.data.businesses.length === 0 ? <div></div> : <button onClick={this.toggleHidden.bind(this)}>{this.state.isHidden ? 'Click to View Map' : 'Click to Close Map'}</button>  }
         { this.state.isHidden ? <BusinessList /> : <BusinessListing />}
-        {console.log(this.state.businesses)}
-        {console.log(this.props.data.businesses)}
       </div>
     )
   }
