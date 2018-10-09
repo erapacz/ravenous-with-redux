@@ -18,7 +18,8 @@ export default function businesses(state = initialState, action) {
         ...state,
         loading: false,
         errors: null,
-        businesses: action.payload.businesses
+        businesses: action.payload.businesses.businesses,
+        region: action.payload.businesses.region
       };
     case FETCH_BUSINESSES_FAIL:
       return {

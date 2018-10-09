@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import BusinessListing from './BusinessListing';
 import BusinessList from './BusinessList';
-import * as Actions from '../actions/index';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 
 class ComponentView extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isHidden: true
+      isHidden: true,
+      businesses: []
     }
   }
 
@@ -19,21 +18,22 @@ class ComponentView extends Component {
     })
   }
 
-
   render() {
     return (
-      <div className="">
-        <button onClick={this.toggleHidden.bind(this)}>{this.state.isHidden ? 'Click to View Map' : 'Click to Close Map'}</button>
-        { this.state.isHidden ? <BusinessList onBusinessSelect={ selectedBusiness => this.props.actions.openModal({selectedBusiness}) }/> : <BusinessListing />}
+      <div>
+        { this.props.data.businesses.length === 0 ? <div></div> : <button onClick={this.toggleHidden.bind(this)}>{this.state.isHidden ? 'Click to View Map' : 'Click to Close Map'}</button>  }
+        { this.state.isHidden ? <BusinessList /> : <BusinessListing />}
+        {console.log(this.state.businesses)}
+        {console.log(this.props.data.businesses)}
       </div>
     )
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(state) {
   return {
-    actions: bindActionCreators(Actions, dispatch)
+    data: state.businesses,
   };
 }
 
-export default connect(null, mapDispatchToProps)(ComponentView);
+export default connect(mapStateToProps)(ComponentView);

@@ -28,11 +28,11 @@ class BusinessListing extends Component {
         <Map google={this.props.google}
              style={{width: '100%', height: '75%', position: 'relative'}}
              initialCenter={{
-               lat: 41.9052,
-               lng: -87.6777
+               lat: this.props.region.center.latitude,
+               lng: this.props.region.center.longitude
              }}
              zoom={12}>
-             {this.props.data.businesses.map((business) => {
+             {this.props.data.map((business) => {
                return (
                  <Marker key={business.id}
                          title={business.name}
@@ -56,7 +56,8 @@ class BusinessListing extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.businesses
+    data: state.businesses.businesses,
+    region: state.businesses.region
   };
 }
 

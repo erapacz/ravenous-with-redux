@@ -20,18 +20,19 @@ export const requestBusinesses = (term, location, sortBy) => {
       }})
       .then(res => {
         dispatch(requestBusinessesSuccess(res.data));
-        console.log(res);
       })
       .catch(err => {
         dispatch(requestBusinessesFail(err.message));
-        console.log(err);
       });
   };
 };
 
-const requestBusinessesSuccess = businesses => ({
+const requestBusinessesSuccess = (businesses, region) => ({
   type: FETCH_BUSINESSES_SUCCESS,
-  payload: businesses
+  payload: {
+    businesses,
+    region
+  }
 });
 
 const requestBusinessesStarted = () => ({
