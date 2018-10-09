@@ -1,28 +1,53 @@
 import React, {Component} from 'react';
 import '../styles/App.css';
-import {Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import {Map, Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react';
 import {connect} from 'react-redux';
 
 
 class BusinessListing extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+    showingInfoWindow: false,
+    activeMarker: {},
+    selectedPlace: {}
+  };
+}
+
+  onMarkerClick = (props, marker, e) =>
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    });
+
   render() {
     return(
       <div className="BusinessListing">
         <Map google={this.props.google}
              style={{width: '100%', height: '75%', position: 'relative'}}
              initialCenter={{
-               lat: 41.8818,
-               lng: -87.6232
+               lat: 41.9052,
+               lng: -87.6777
              }}
              zoom={12}>
              {this.props.data.businesses.map((business) => {
                return (
                  <Marker key={business.id}
                          title={business.name}
-                         position={{lat: business.coordinates.latitude, lng: business.coordinates.longitude}} />
+                         position={{lat: business.coordinates.latitude, lng: business.coordinates.longitude}}
+                         onClick={this.onMarkerClick} />
                );
              })
            }
+           <InfoWindow
+             marker={this.state.activeMarker}
+             visible={this.state.showingInfoWindow}>
+               <div>
+                 <h1>{this.state.selectedPlace.title}</h1>
+               </div>
+             </InfoWindow>
        </Map>
      </div>
     );

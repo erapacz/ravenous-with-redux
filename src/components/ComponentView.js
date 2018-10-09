@@ -19,10 +19,11 @@ class ComponentView extends Component {
     })
   }
 
+
   render() {
     return (
-      <div>
-        <button onClick={this.toggleHidden.bind(this)} >Click to View Map</button>
+      <div className="">
+        <button onClick={this.toggleHidden.bind(this)}>{this.state.isHidden ? 'Click to View Map' : 'Click to Close Map'}</button>
         { this.state.isHidden ? <BusinessList onBusinessSelect={ selectedBusiness => this.props.actions.openModal({selectedBusiness}) }/> : <BusinessListing />}
       </div>
     )
