@@ -1,7 +1,7 @@
 import { OPEN_MODAL, CLOSE_MODAL } from '../actions';
 
 const initialState = {
-  selectedGif: null,
+  selectedBusiness: null,
   modalIsOpen: false
 };
 
@@ -11,7 +11,7 @@ export default function modal(state = initialState, action) {
       return {
         ...state,
         modalIsOpen: true,
-        selectedGif: action.business.selectedBusiness
+        selectedBusiness: action.business.selectedBusiness
       };
     case CLOSE_MODAL:
       return {

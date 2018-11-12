@@ -8,12 +8,12 @@ class SearchBar extends Component {
   constructor(props){
     super(props);
     this.state = {
-      term: '',
-      location: '',
-      sortBy: 'best_match'
+      term: "",
+      location: "",
+      sortBy: 'best_match',
     };
 
-    //allows user to submit form with anchor tag rather than a button
+    // allows to submit form with anchor tag rather button
     this.handleSearch = this.handleSearch.bind(this);
 
     this.sortByOptions = {
@@ -38,7 +38,7 @@ class SearchBar extends Component {
 
   handleSearch = e => {
     e.preventDefault();
-    //fetch Yelp API by calling action creator
+    // fetch Yelp API by calling action creator
     this.props.requestBusinesses(
       this.state.term,
       this.state.location,
@@ -46,7 +46,7 @@ class SearchBar extends Component {
     );
     //clear search fields
     this.setState({term: '', location: ''})
-  }
+}
 
   renderSortByOptions(){
     return Object.keys(this.sortByOptions).map(sortByOption => {
@@ -56,7 +56,7 @@ class SearchBar extends Component {
           className={sortByOptionValue === this.state.sortBy ? 'active' : ''}
           key={sortByOptionValue}
           onClick={() => this.handleSortByChange(sortByOptionValue)}>
-            {sortByOption}
+          {sortByOption}
         </li>
       );
     });
@@ -92,7 +92,7 @@ class SearchBar extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.businesses
+    businesses: state.businesses
   };
 }
 

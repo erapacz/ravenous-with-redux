@@ -1,9 +1,9 @@
 import React from 'react';
 import '../styles/App.css';
 
-const Business = ({business}) => {
+const Business = ({business, onBusinessSelect}) => {
   return (
-    <div className="Business">
+    <div className="Business" onClick={() => onBusinessSelect(business)}>
       <div className="image-container">
         <img src={business.image_url} alt={business.name} />
       </div>
@@ -12,7 +12,7 @@ const Business = ({business}) => {
         <div className="Business-address">
           <p>{business.location.address1}</p>
           <p>{business.location.city}</p>
-          <p>{`${business.location.state} ${business.location.zipCode}`}</p>
+          <p>{`${business.location.state} ${business.location.zip_code}`}</p>
         </div>
         <div className="Business-reviews">
           <h3 className="rating">{`${business.rating} stars`}</h3>
