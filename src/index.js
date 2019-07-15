@@ -7,11 +7,15 @@ import configureStore from './store/store';
 import registerServiceWorker from './registerServiceWorker';
 
 const store = configureStore();
+export default class Main extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <App />
+      </Provider>
+    )
+  }
+}
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
-);
+ReactDOM.render(<Main />, document.getElementById('root'));
 registerServiceWorker();
